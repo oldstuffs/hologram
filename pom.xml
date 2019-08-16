@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.portlek.apibasenms</groupId>
-    <artifactId>apibasenms</artifactId>
+    <groupId>io.github.portlek.hologram</groupId>
+    <artifactId>hologram</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
 
@@ -57,7 +57,7 @@
     </build>
     <modules>
         <module>api</module>
-        <module>apibasenms</module>
+        <module>hologram</module>
         <module>nms</module>
     </modules>
 
