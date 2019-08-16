@@ -1,8 +1,8 @@
-package io.github.portlek.apibasenms.base;
+package io.github.portlek.hologram.base;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class ApiBaseNMSPlugin extends JavaPlugin {
+public final class Hologram extends JavaPlugin {
 
     @Override
     public void onEnable() {
