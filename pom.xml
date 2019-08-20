@@ -5,9 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.portlek.hologram</groupId>
-    <artifactId>hologram</artifactId>
+    <artifactId>parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
+
+    <modules>
+        <module>api</module>
+        <module>hologram</module>
+        <module>nms</module>
+    </modules>
 
     <build>
         <plugins>
@@ -55,11 +61,6 @@
             </plugin>
         </plugins>
     </build>
-    <modules>
-        <module>api</module>
-        <module>hologram</module>
-        <module>nms</module>
-    </modules>
 
     <dependencies>
         <dependency>
