@@ -2,7 +2,17 @@ package io.github.portlek.hologram.base;
 
 import io.github.portlek.hologram.api.Hologram;
 import io.github.portlek.hologram.api.MckHologram;
+import io.github.portlek.hologram.nms.v1_10_R1.Hologram1_10_R1;
+import io.github.portlek.hologram.nms.v1_11_R1.Hologram1_11_R1;
+import io.github.portlek.hologram.nms.v1_12_R1.Hologram1_12_R1;
+import io.github.portlek.hologram.nms.v1_13_R1.Hologram1_13_R1;
+import io.github.portlek.hologram.nms.v1_13_R2.Hologram1_13_R2;
+import io.github.portlek.hologram.nms.v1_14_R1.Hologram1_14_R1;
 import io.github.portlek.hologram.nms.v1_8_R1.Hologram1_8_R1;
+import io.github.portlek.hologram.nms.v1_8_R2.Hologram1_8_R2;
+import io.github.portlek.hologram.nms.v1_8_R3.Hologram1_8_R3;
+import io.github.portlek.hologram.nms.v1_9_R1.Hologram1_9_R1;
+import io.github.portlek.hologram.nms.v1_9_R2.Hologram1_9_R2;
 import io.github.portlek.itemstack.Colored;
 import io.github.portlek.location.StringOf;
 import io.github.portlek.mcyaml.IYaml;
@@ -19,8 +29,8 @@ public class HologramEnvelope {
 
     private static final Hologram HOLOGRAM = new VersionMatched<>(
         new MckHologram(),
-        Hologram1_8_R1.class
-        /*Hologram1_8_R2.class,
+        Hologram1_8_R1.class,
+        Hologram1_8_R2.class,
         Hologram1_8_R3.class,
         Hologram1_9_R1.class,
         Hologram1_9_R2.class,
@@ -29,7 +39,7 @@ public class HologramEnvelope {
         Hologram1_12_R1.class,
         Hologram1_13_R1.class,
         Hologram1_13_R2.class,
-        Hologram1_14_R1.class*/
+        Hologram1_14_R1.class
     ).of().instance();
 
     private static final double OFFSET = 0.23D;

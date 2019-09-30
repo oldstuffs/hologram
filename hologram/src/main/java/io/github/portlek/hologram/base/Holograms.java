@@ -1,6 +1,5 @@
 package io.github.portlek.hologram.base;
 
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;

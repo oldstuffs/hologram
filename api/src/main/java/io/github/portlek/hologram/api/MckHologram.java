@@ -2,6 +2,7 @@ package io.github.portlek.hologram.api;
 
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class MckHologram implements Hologram {
@@ -25,5 +26,8 @@ public class MckHologram implements Hologram {
     }
     @Override
     public void configureHologram(@NotNull Object paramObject, @NotNull String paramString, @NotNull Location paramLocation) {
+    }
+    @Override
+    public void sendPacket(@NotNull Player player, @NotNull Object object) {
     }
 }
