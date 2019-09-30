@@ -1,9 +1,11 @@
 package io.github.portlek.hologram.base;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-public final class Holograms {
+public final class Holograms implements Listener {
 
     @NotNull
     private final Plugin plugin;
@@ -13,7 +15,9 @@ public final class Holograms {
     }
 
     public void init() {
-
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
+
+
 
 }
