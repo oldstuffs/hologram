@@ -101,10 +101,7 @@ public class HologramEnvelope {
     public void addLine(@NotNull String... line) {
         addLines(
             new ListOf<>(
-                Arrays.copyOf(
-                    line,
-                    line.length
-                )
+                line
             )
         );
     }
