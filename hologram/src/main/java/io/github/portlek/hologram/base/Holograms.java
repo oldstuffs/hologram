@@ -1,7 +1,6 @@
 package io.github.portlek.hologram.base;
 
 import io.github.portlek.hologram.api.Hologram;
-import io.github.portlek.hologram.api.IHologram;
 import io.github.portlek.hologram.api.MckHologram;
 import io.github.portlek.location.LocationOf;
 import io.github.portlek.mcyaml.IYaml;
@@ -13,7 +12,9 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public final class Holograms implements Listener {
 

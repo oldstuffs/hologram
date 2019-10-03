@@ -24,7 +24,10 @@ import org.bukkit.entity.Player;
 import org.cactoos.list.ListOf;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class HologramEnvelope implements Hologram {
 
