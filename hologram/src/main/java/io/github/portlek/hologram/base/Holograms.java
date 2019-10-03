@@ -31,7 +31,18 @@ public final class Holograms implements Listener {
         this.yaml = yaml;
     }
 
-    public final void initHologram() {
+    public void initHologram() {
+        new ListenerBasic<>(PluginDisableEvent.class, event -> {
+            if (!event.getPlugin().equals(plugin))
+                return;
+
+            holograms.values().forEach(Hologram::remove);
+        }).register(plugin);
+
+        reloadHolograms();
+    }
+
+    public void reloadHolograms() {
         ConfigurationSection section = yaml.getSection("Holograms");
 
         if (section instanceof MckFileConfiguration)
@@ -44,34 +55,27 @@ public final class Holograms implements Listener {
             this.holograms.put(UUID.fromString(id), hologram);
             hologram.spawn();
         }
-
-        new ListenerBasic<>(PluginDisableEvent.class, event -> {
-            if (!event.getPlugin().equals(plugin))
-                return;
-
-            holograms.values().forEach(Hologram::remove);
-        });
     }
 
     @NotNull
-    public final Hologram getHologram(@NotNull final UUID uuid) {
+    public Hologram getHologram(@NotNull final UUID uuid) {
         return holograms.getOrDefault(uuid, new MckHologram());
     }
 
     @NotNull
-    public final Hologram createHologram(@NotNull final Location location, @NotNull final List<String> lines) {
+    public Hologram createHologram(@NotNull final Location location, @NotNull final List<String> lines) {
         return createHologramWithId(UUID.randomUUID(), location, lines);
     }
 
     @NotNull
-    public final Hologram createHologramWithId(@NotNull final UUID uuid, @NotNull final Location location, @NotNull final List<String> lines) {
+    public Hologram createHologramWithId(@NotNull final UUID uuid, @NotNull final Location location, @NotNull final List<String> lines) {
         final HologramOf hologram = new HologramOf(location, lines);
         holograms.put(uuid, hologram);
         saveHologram();
         return hologram;
     }
 
-    public final void removeHologram(@NotNull final UUID uuid) {
+    public void removeHologram(@NotNull final UUID uuid) {
         yaml.set("Holograms." + uuid, null);
         if (holograms.containsKey(uuid)) {
             getHologram(uuid).remove();
@@ -80,7 +84,7 @@ public final class Holograms implements Listener {
         saveHologram();
     }
 
-    public final void removeHolograms() {
+    public void removeHolograms() {
         yaml.set("Holograms", null);
         holograms.values().forEach(Hologram::remove);
         holograms.clear();
