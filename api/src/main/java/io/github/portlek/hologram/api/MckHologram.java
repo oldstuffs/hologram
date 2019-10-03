@@ -1,33 +1,54 @@
 package io.github.portlek.hologram.api;
 
-import org.bukkit.Location;
-import org.bukkit.World;
+import io.github.portlek.mcyaml.IYaml;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+import java.util.UUID;
+
 public class MckHologram implements Hologram {
-    @NotNull
     @Override
-    public Object spawnHologram(@NotNull String paramString, @NotNull Location paramLocation) {
-        return "";
+    public void displayTo(@NotNull Player... players) {
     }
+
     @Override
-    public void removeHologram(@NotNull World paramWorld, @NotNull Object paramObject) {
+    public void removeFrom(@NotNull Player... players) {
+
     }
-    @NotNull
+
     @Override
-    public Object[] createPacket(@NotNull Location paramLocation, @NotNull String paramString) {
-        return new Object[0];
+    public void spawn() {
+
     }
-    @NotNull
+
     @Override
-    public Object removePacket(int paramInt) {
-        return "";
+    public void remove() {
+
     }
+
     @Override
-    public void configureHologram(@NotNull Object paramObject, @NotNull String paramString, @NotNull Location paramLocation) {
+    public void save(@NotNull IYaml yaml, @NotNull UUID uuid) {
+
     }
+
     @Override
-    public void sendPacket(@NotNull Player player, @NotNull Object object) {
+    public void removeLines() {
+
+    }
+
+    @Override
+    public void addLine(@NotNull String... lines) {
+
+    }
+
+    @Override
+    public void addLines(@NotNull List<String> lines) {
+
+    }
+
+    @Override
+    public void setLines(@NotNull List<String> lines) {
+
     }
 }

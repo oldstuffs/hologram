@@ -1,25 +1,30 @@
 package io.github.portlek.hologram.api;
 
-import org.bukkit.Location;
-import org.bukkit.World;
+import io.github.portlek.mcyaml.IYaml;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+import java.util.UUID;
+
 public interface Hologram {
 
-    @NotNull
-    Object spawnHologram(@NotNull String paramString, @NotNull Location paramLocation);
+    void displayTo(@NotNull final Player... players);
 
-    void removeHologram(@NotNull World paramWorld, @NotNull Object paramObject);
+    void removeFrom(@NotNull final Player... players);
 
-    @NotNull
-    Object[] createPacket(@NotNull Location paramLocation, @NotNull String paramString);
+    void spawn();
 
-    @NotNull
-    Object removePacket(int paramInt);
+    void remove();
 
-    void configureHologram(@NotNull Object paramObject, @NotNull String paramString, @NotNull Location paramLocation);
+    void save(@NotNull final IYaml yaml, @NotNull final UUID uuid);
 
-    void sendPacket(@NotNull Player player, @NotNull Object object);
+    void removeLines();
+
+    void addLine(@NotNull final String... lines);
+
+    void addLines(@NotNull final List<String> lines);
+
+    void setLines(@NotNull final List<String> lines);
 
 }

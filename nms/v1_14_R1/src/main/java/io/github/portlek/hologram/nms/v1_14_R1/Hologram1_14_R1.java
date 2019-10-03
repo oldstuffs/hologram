@@ -1,6 +1,6 @@
 package io.github.portlek.hologram.nms.v1_14_R1;
 
-import io.github.portlek.hologram.api.Hologram;
+import io.github.portlek.hologram.api.IHologram;
 import net.minecraft.server.v1_14_R1.*;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class Hologram1_14_R1 implements Hologram {
+public class Hologram1_14_R1 implements IHologram {
 
     @Override
     @NotNull

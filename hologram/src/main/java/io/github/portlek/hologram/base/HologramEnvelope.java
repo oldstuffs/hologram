@@ -1,7 +1,8 @@
 package io.github.portlek.hologram.base;
 
 import io.github.portlek.hologram.api.Hologram;
-import io.github.portlek.hologram.api.MckHologram;
+import io.github.portlek.hologram.api.IHologram;
+import io.github.portlek.hologram.api.MckNMSHologram;
 import io.github.portlek.hologram.nms.v1_10_R1.Hologram1_10_R1;
 import io.github.portlek.hologram.nms.v1_11_R1.Hologram1_11_R1;
 import io.github.portlek.hologram.nms.v1_12_R1.Hologram1_12_R1;
@@ -25,10 +26,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class HologramEnvelope {
+public class HologramEnvelope implements Hologram {
 
-    private static final Hologram HOLOGRAM = new VersionMatched<>(
-        new MckHologram(),
+    private static final IHologram HOLOGRAM = new VersionMatched<>(
+        new MckNMSHologram(),
         Hologram1_8_R1.class,
         Hologram1_8_R2.class,
         Hologram1_8_R3.class,
@@ -66,6 +67,7 @@ public class HologramEnvelope {
         update();
     }
 
+    @Override
     public void displayTo(@NotNull Player... player) {
         Location current = location.clone().add(0.0D, OFFSET * lines.size() - 1.97D, 0.0D);
         for (String str : lines) {
@@ -80,6 +82,7 @@ public class HologramEnvelope {
         }
     }
 
+    @Override
     public void removeFrom(@NotNull Player... player) {
         Object packet = null;
 
@@ -93,11 +96,13 @@ public class HologramEnvelope {
             }
     }
 
+    @Override
     public void removeLines() {
         lines.clear();
         update();
     }
 
+    @Override
     public void addLine(@NotNull String... line) {
         addLines(
             new ListOf<>(
@@ -106,14 +111,40 @@ public class HologramEnvelope {
         );
     }
 
+    @Override
     public void addLines(@NotNull List<String> lines) {
         this.lines.addAll(lines);
         update();
     }
 
+    @Override
     public void setLines(@NotNull List<String> lines) {
         removeLines();
         addLines(lines);
+    }
+
+    @Override
+    public void spawn() {
+        Location current = location.clone()
+            .add(0.0D, OFFSET * lines.size() - 1.97D, 0.0D)
+            .add(0.0D, OFFSET, 0.0D);
+
+        for (String line : lines) {
+            entities.add(HOLOGRAM.spawnHologram(line, current.subtract(0.0D, OFFSET, 0.0D)));
+        }
+    }
+
+    @Override
+    public void save(@NotNull IYaml file, @NotNull UUID uuid) {
+        file.set("Holograms." + uuid.toString() + ".location", new StringOf(location).asString());
+        file.set("Holograms." + uuid.toString() + ".lines", lines);
+    }
+
+    @Override
+    public void remove() {
+        for (Object entity : entities) {
+            HOLOGRAM.removeHologram(world, entity);
+        }
     }
 
     private void update() {
@@ -136,27 +167,6 @@ public class HologramEnvelope {
                 HOLOGRAM.configureHologram(entities.get(b), text, current);
 
             current.subtract(0.0D, OFFSET, 0.0D);
-        }
-    }
-
-    public void spawn() {
-        Location current = location.clone()
-            .add(0.0D, OFFSET * lines.size() - 1.97D, 0.0D)
-            .add(0.0D, OFFSET, 0.0D);
-
-        for (String line : lines) {
-            entities.add(HOLOGRAM.spawnHologram(line, current.subtract(0.0D, OFFSET, 0.0D)));
-        }
-    }
-
-    public void save(@NotNull IYaml file, @NotNull UUID uuid) {
-        file.set("Holograms." + uuid.toString() + ".location", new StringOf(location).asString());
-        file.set("Holograms." + uuid.toString() + ".lines", lines);
-    }
-
-    public void remove() {
-        for (Object entity : entities) {
-            HOLOGRAM.removeHologram(world, entity);
         }
     }
 
