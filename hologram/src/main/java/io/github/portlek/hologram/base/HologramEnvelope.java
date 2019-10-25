@@ -14,7 +14,7 @@ import io.github.portlek.hologram.nms.v1_8_R2.Hologram1_8_R2;
 import io.github.portlek.hologram.nms.v1_8_R3.Hologram1_8_R3;
 import io.github.portlek.hologram.nms.v1_9_R1.Hologram1_9_R1;
 import io.github.portlek.hologram.nms.v1_9_R2.Hologram1_9_R2;
-import io.github.portlek.itemstack.Colored;
+import io.github.portlek.itemstack.util.Colored;
 import io.github.portlek.location.StringOf;
 import io.github.portlek.mcyaml.IYaml;
 import io.github.portlek.versionmatched.VersionMatched;
