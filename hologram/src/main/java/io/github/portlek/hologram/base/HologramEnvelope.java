@@ -21,7 +21,11 @@ import io.github.portlek.versionmatched.VersionMatched;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.cactoos.Proc;
+import org.cactoos.iterable.IterableOf;
 import org.cactoos.list.ListOf;
+import org.cactoos.list.Mapped;
+import org.cactoos.scalar.And;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -66,18 +70,21 @@ public class HologramEnvelope implements Hologram {
     public HologramEnvelope(@NotNull Location location, @NotNull List<String> lines) {
         this.location = location;
         this.lines = new ArrayList<>(lines);
-        world = Objects.requireNonNull(this.location.getWorld());
+        world = Objects.requireNonNull(location.getWorld());
+
         update();
     }
 
     @Override
-    public void displayTo(@NotNull Player... player) {
-        Location current = location.clone().add(0.0D, OFFSET * lines.size() - 1.97D, 0.0D);
+    public void displayTo(@NotNull Player... players) {
+        final Location current = location.clone().add(0.0D, OFFSET * lines.size() - 1.97D, 0.0D);
+
         for (String str : lines) {
-            Object[] packet = HOLOGRAM.createPacket(current, new Colored(str).value());
+            final Object[] packet = HOLOGRAM.createPacket(current, new Colored(str).value());
+
             ids.add((Integer)packet[1]);
 
-            for (Player p : player) {
+            for (Player p : players) {
                 HOLOGRAM.sendPacket(p, packet[0]);
             }
 
@@ -86,17 +93,23 @@ public class HologramEnvelope implements Hologram {
     }
 
     @Override
-    public void removeFrom(@NotNull Player... player) {
-        Object packet = null;
-
-        for (Integer id : ids) {
-            packet = HOLOGRAM.removePacket(id);
+    public void removeFrom(@NotNull Player... players) {
+        try {
+            new And(
+                (Proc<Object>) packet -> new And(
+                    (Proc<Player>) player -> HOLOGRAM.sendPacket(player, packet),
+                    new IterableOf<>(
+                        players
+                    )
+                ).value(),
+                new Mapped<>(
+                    HOLOGRAM::removePacket,
+                    ids
+                )
+            ).value();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        if (packet != null)
-            for (Player p : player) {
-                HOLOGRAM.sendPacket(p, packet);
-            }
     }
 
     @Override
@@ -128,7 +141,7 @@ public class HologramEnvelope implements Hologram {
 
     @Override
     public void spawn() {
-        Location current = location.clone()
+        final Location current = location.clone()
             .add(0.0D, OFFSET * lines.size() - 1.97D, 0.0D)
             .add(0.0D, OFFSET, 0.0D);
 
@@ -151,23 +164,25 @@ public class HologramEnvelope implements Hologram {
     }
 
     private void update() {
-        if (entities.isEmpty())
+        if (entities.isEmpty()) {
             return;
+        }
 
         for (Object ent : entities) {
             HOLOGRAM.removeHologram(world, ent);
         }
 
-        Location current = location.clone()
+        final Location current = location.clone()
             .add(0.0D, OFFSET * lines.size() - 1.97D, 0.0D);
 
         for (int b = 0, j = lines.size(); b < j; b++) {
-            String text = new Colored(lines.get(b)).toString();
+            final String text = new Colored(lines.get(b)).toString();
 
-            if (b >= entities.size())
+            if (b >= entities.size()) {
                 HOLOGRAM.spawnHologram(text, current);
-            else
+            } else {
                 HOLOGRAM.configureHologram(entities.get(b), text, current);
+            }
 
             current.subtract(0.0D, OFFSET, 0.0D);
         }
