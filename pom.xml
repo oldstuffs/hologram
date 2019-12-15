@@ -7,7 +7,7 @@
     <groupId>io.github.portlek.hologram</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.2</version>
+    <version>1.3</version>
 
     <modules>
         <module>api</module>
@@ -61,7 +61,7 @@
         <dependency>
             <groupId>io.github.portlek</groupId>
             <artifactId>mc-yaml</artifactId>
-            <version>1.6</version>
+            <version>1.8</version>
         </dependency>
         <dependency>
             <groupId>org.cactoos</groupId>

@@ -9,6 +9,7 @@ import io.github.portlek.hologram.nms.v1_12_R1.Hologram1_12_R1;
 import io.github.portlek.hologram.nms.v1_13_R1.Hologram1_13_R1;
 import io.github.portlek.hologram.nms.v1_13_R2.Hologram1_13_R2;
 import io.github.portlek.hologram.nms.v1_14_R1.Hologram1_14_R1;
+import io.github.portlek.hologram.nms.v1_15_R1.Hologram1_15_R1;
 import io.github.portlek.hologram.nms.v1_8_R1.Hologram1_8_R1;
 import io.github.portlek.hologram.nms.v1_8_R2.Hologram1_8_R2;
 import io.github.portlek.hologram.nms.v1_8_R3.Hologram1_8_R3;
@@ -47,7 +48,8 @@ public class HologramEnvelope implements Hologram {
         Hologram1_12_R1.class,
         Hologram1_13_R1.class,
         Hologram1_13_R2.class,
-        Hologram1_14_R1.class
+        Hologram1_14_R1.class,
+        Hologram1_15_R1.class
     ).of().instance();
 
     private static final double OFFSET = 0.23D;
