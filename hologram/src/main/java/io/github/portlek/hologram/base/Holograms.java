@@ -12,13 +12,14 @@ import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentNavigableMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 public final class Holograms implements Listener {
 
-    private final HashMap<UUID, Hologram> holograms = new HashMap<>();
+    private final ConcurrentNavigableMap<UUID, Hologram> holograms = new ConcurrentSkipListMap<>();
 
     @NotNull
     private final Plugin plugin;
@@ -71,7 +72,7 @@ public final class Holograms implements Listener {
     public Hologram createHologramWithId(@NotNull final UUID uuid, @NotNull final Location location, @NotNull final List<String> lines) {
         final HologramOf hologram = new HologramOf(location, lines);
         holograms.put(uuid, hologram);
-        saveHologram();
+        hologram.save(yaml, uuid);
         return hologram;
     }
 
@@ -81,17 +82,12 @@ public final class Holograms implements Listener {
             getHologram(uuid).remove();
         }
         holograms.remove(uuid);
-        saveHologram();
     }
 
     public void removeHolograms() {
         yaml.set("Holograms", null);
         holograms.values().forEach(Hologram::remove);
         holograms.clear();
-    }
-
-    private void saveHologram() {
-        holograms.forEach((uuid, hologram) -> hologram.save(yaml, uuid));
     }
 
 }
