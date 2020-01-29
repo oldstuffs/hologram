@@ -13,6 +13,9 @@ public interface Hologram {
 
     void removeFrom(@NotNull final Player... players);
 
+    @NotNull
+    List<String> getLines();
+
     void spawn();
 
     void remove();

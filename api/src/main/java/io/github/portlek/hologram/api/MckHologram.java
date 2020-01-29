@@ -4,6 +4,7 @@ import io.github.portlek.mcyaml.IYaml;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,4 +52,11 @@ public class MckHologram implements Hologram {
     public void setLines(@NotNull List<String> lines) {
 
     }
+
+    @NotNull
+    @Override
+    public List<String> getLines() {
+        return new ArrayList<>();
+    }
+
 }

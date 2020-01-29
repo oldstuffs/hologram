@@ -141,6 +141,12 @@ public class HologramEnvelope implements Hologram {
         addLines(lines);
     }
 
+    @NotNull
+    @Override
+    public List<String> getLines() {
+        return lines;
+    }
+
     @Override
     public void spawn() {
         final Location current = location.clone()
@@ -154,7 +160,7 @@ public class HologramEnvelope implements Hologram {
 
     @Override
     public void save(@NotNull IYaml file, @NotNull UUID uuid) {
-        file.set("Holograms." + uuid.toString() + ".location", new StringOf(location).asString());
+        file.set("Holograms." + uuid.toString() + ".location", new StringOf(location).asKey());
         file.set("Holograms." + uuid.toString() + ".lines", lines);
     }
 
